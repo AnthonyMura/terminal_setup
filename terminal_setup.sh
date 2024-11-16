@@ -6,7 +6,7 @@ sudo apt update && sudo apt upgrade -y
 
 # Install required tools
 echo "Installing required packages..."
-sudo apt install -y curl git python3-pip python3-dev python3-setuptools zsh
+sudo apt install -y curl git python3-pip python3-dev python3-setuptools zsh unzip fonts-firacode
 
 # Install `eza` (modern ls replacement) or fallback to `exa`
 echo "Installing eza or exa..."
@@ -27,6 +27,22 @@ pip3 install --user thefuck
 echo "Installing starship..."
 curl -sS https://starship.rs/install.sh | sh
 
+# Configure `PastelPowerline` preset for Starship
+echo "Configuring Starship with PastelPowerline preset..."
+starship preset pastel-powerline -o ~/.config/starship.toml
+
+# Install Fira Code font
+echo "Installing Fira Code font..."
+if ! fc-list | grep -q "Fira Code"; then
+    mkdir -p ~/.local/share/fonts
+    curl -Lo ~/.local/share/fonts/FiraCode.zip https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip
+    unzip -o ~/.local/share/fonts/FiraCode.zip -d ~/.local/share/fonts/
+    fc-cache -f -v
+    echo "Fira Code font installed successfully."
+else
+    echo "Fira Code font is already installed."
+fi
+
 # Check if Visual Studio Code CLI (`code`) is available
 if ! command -v code &> /dev/null; then
     echo "Note: Visual Studio Code CLI ('code') is not installed or not in the PATH."
@@ -39,13 +55,13 @@ cat <<EOF >> ~/.zshrc
 
 # --eza or exa (based on availability)--
 if command -v eza &> /dev/null; then
-    alias ls="eza --long --tree --level=1 --no-filesize --icons=always --no-permissions --no-user"
-    alias ls2="eza --long --tree --level=2 --no-filesize --icons=always --no-permissions --no-user"
-    alias ls -a="eza --long --tree --level=1 --no-filesize --icons=always --no-permissions --no-user -a"
+    alias ls="eza --long --tree --level=1 --icons=always"
+    alias ll="eza --long --tree --level=2 --icons=always"
+    alias la="eza --long --tree --level=1 --icons=always -a"
 elif command -v exa &> /dev/null; then
-    alias ls="exa --long --tree --level=1 --no-filesize --icons=always --no-permissions --no-user"
-    alias ls2="exa --long --tree --level=2 --no-filesize --icons=always --no-permissions --no-user"
-    alias ls -a="exa --long --tree --level=1 --no-filesize --icons=always --no-permissions --no-user -a"
+    alias ls="exa --long --tree --level=1 --icons"
+    alias ll="exa --long --tree --level=2 --icons"
+    alias la="exa --long --tree --level=1 --icons --all"
 fi
 
 # --the fuck (if available)--
