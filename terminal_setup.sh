@@ -55,9 +55,9 @@ cat <<EOF >> ~/.zshrc
 
 # --eza or exa (based on availability)--
 if command -v eza &> /dev/null; then
-    alias ls="eza --long --tree --level=1 --icons=always"
-    alias ll="eza --long --tree --level=2 --icons=always"
-    alias la="eza --long --tree --level=1 --icons=always -a"
+    alias ls="eza --long --tree --level=1 --icons"
+    alias ll="eza --long --tree --level=2 --icons"
+    alias la="eza --long --tree --level=1 --icons -a"
 elif command -v exa &> /dev/null; then
     alias ls="exa -l -T --level=1 --icons"
     alias ll="exa -l -T --level=2 --icons"
