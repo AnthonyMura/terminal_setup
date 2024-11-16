@@ -8,9 +8,15 @@ sudo apt update && sudo apt upgrade -y
 echo "Installing required packages..."
 sudo apt install -y curl git python3-pip zsh
 
-# Install `eza` (modern ls replacement)
-echo "Installing eza..."
-sudo apt install -y eza
+# Install `eza` (modern ls replacement) or fallback to `exa`
+echo "Installing eza or exa..."
+if sudo apt install -y eza; then
+    LS_TOOL="eza"
+else
+    echo "eza is not available. Installing exa as a fallback."
+    sudo apt install -y exa
+    LS_TOOL="exa"
+fi
 
 # Install `thefuck` (command fixer)
 echo "Installing thefuck..."
@@ -30,10 +36,10 @@ fi
 echo "Configuring .zshrc..."
 cat <<EOF >> ~/.zshrc
 
-# --eza--
-alias ls="eza --long --tree --level=1 --no-filesize --icons=always --no-permissions --no-user"
-alias ls2="eza --long --tree --level=2 --no-filesize --icons=always --no-permissions --no-user"
-alias ls -a="eza --long --tree --level=1 --no-filesize --icons=always --no-permissions --no-user -a"
+# --eza or exa (based on availability)--
+alias ls="\$LS_TOOL --long --tree --level=1 --no-filesize --icons=always --no-permissions --no-user"
+alias ls2="\$LS_TOOL --long --tree --level=2 --no-filesize --icons=always --no-permissions --no-user"
+alias ls -a="\$LS_TOOL --long --tree --level=1 --no-filesize --icons=always --no-permissions --no-user -a"
 
 # --the fuck--
 eval \$(thefuck --alias)
