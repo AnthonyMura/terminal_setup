@@ -59,9 +59,9 @@ if command -v eza &> /dev/null; then
     alias ll="eza --long --tree --level=2 --icons"
     alias la="eza --long --tree --level=1 --icons -a"
 elif command -v exa &> /dev/null; then
-    alias ls="exa -l -T --level=1 --icons"
-    alias ll="exa -l -T --level=2 --icons"
-    alias la="exa -l -T --level=1 --icons -a"
+    alias ls="exa -l -T --level=1"
+    alias ll="exa -l -T --level=2"
+    alias la="exa -l -T --level=1 -a"
 fi
 
 # --the fuck (if available)--
