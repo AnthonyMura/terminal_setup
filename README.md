@@ -20,6 +20,6 @@ This script offers a streamlined way to set up a productive terminal environment
    chmod +x setup_prompt.sh
    ```
 3. Run script:
-  ```
+  ```bash
   ./setup_prompt.sh
   ```
