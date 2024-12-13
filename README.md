@@ -15,11 +15,13 @@ This script offers a streamlined way to set up a productive terminal environment
 ## Usage
 
 1. Save the script to a file, e.g., `setup_prompt.sh`.
+
 2. Make the script executable:
-   ```bash
-   chmod +x setup_prompt.sh
-   ```
+```bash
+chmod +x setup_prompt.sh
+```
+   
 3. Run script:
-  ```bash
-  ./setup_prompt.sh
-  ```
+```bash
+./setup_prompt.sh
+```
